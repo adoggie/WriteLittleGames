@@ -1,7 +1,7 @@
 # P5Games
 > 与zyc的交流学习过程中，使用p5js部件进行2d游戏编程。
 
-学习主页 [wallizard.com](http://wallizard.com) 
+学习主页 [wallizard.com](http://wallizard.com)
 
 ### 初级游戏
 
@@ -20,4 +20,4 @@
 
 ### 进阶游戏
 
-1. [skywalker 飞行战机]()
+1. [skywalker 飞行战机](http://wallizard.com/eric/skywalker)
