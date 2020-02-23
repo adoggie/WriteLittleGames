@@ -6,60 +6,39 @@ class Sprite{
     x = 0;
     y = 0 ;
     timer = null;
-    constructor(){
+    id = '';
+    collider = null;
+    scene = null;
+    constructor(cfgs){
+        this.cfgs = cfgs;
     }
 
     draw(){
 
     }
-}
 
-
-//喷火战机
-class SpitFire extends  Sprite{
-    side_moving = false;    //两边开始移动
-    side_move_start_time = 0 ; // 开始移动时间
-    ims_cover = 'ims_cover_spitfire';
-    ims_fan = 'ims_fan_spitfire';
-    ims_shadow = 'ims_shadow_spitfire';
-    left_ani = null;
-    right_ani = null;
-    fan_ani = null;
-    constructor( cfg){
-        super();
-        this.cfg = cfg;
-
-        let ims_fan =  ResourceManager.instance.getImageSequence(this.ims_fan);
-        this.fan_ani = new Animation(fans).setRepeat(0.1); //重复播放
+    setScene(s){
+        this.scene = s;
+        return this;
     }
 
-    draw(){
-        super.draw();
-        push();
-
-
-        if(this.side_moving == true){
-
-        }else{
-            let ani = ResourceManager.instance.getAnimation()
-        }
-        pop();
+    getScene(){
+        return this.scene;
     }
 
-
-
-    leftAnimation(){
+    getId(){
+        return this.id;
     }
 
-    getPart(id){
+    getSize(){}
+
+    move(x,y){
+        this.x = x;
+        this.y = y;
     }
 
-    keyPressing(){
-        if(keyCode == LEFT_ARROW || keyCode == RIGHT_ARROW){
-            if(this.side_moving == false){ //开始两端移动
+    //碰撞触发
+    hit(sprite){
 
-            }
-            this.side_moving = true;
-        }
     }
 }
