@@ -1,0 +1,95 @@
+@font-face {
+  font-family:'Press Start 2P';
+	src:url('fonts/pressstart2p.eot');
+  src:url('fonts/pressstart2p.woff') format('woff'), url('fonts/pressstart2p.ttf') format('truetype'), url('fonts/pressstart2p.svg') format('svg');
+  font-weight:normal;
+  font-style:normal; }
+  
+@font-face {
+  font-family:'GothicPixels';
+  src:url('fonts/gothicpixels.woff') format('woff'), url('fonts/gothicpixels.ttf') format('truetype');
+  font-weight:normal;
+  font-style:normal; }
+
+body {
+  font-family:'Press Start 2P';
+  padding:0;
+  margin:0;
+  overflow:hidden;
+  background-color:#fff; }
+  
+input {
+  font-family:'Press Start 2P';
+  padding:0.5em;
+  margin:0.5em 0;
+  width:100%;
+  box-sizing:border-box; }
+
+#canvas {
+  border:0;
+  margin:0;
+  position:absolute;
+  overflow:hidden;
+  background:transparent; }
+  
+#intro, #thanks, #hiscore { 
+  background-color:#000;
+  color:#fff;
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%, -50%); 
+  width:400px;
+  min-height:300px;
+  display:none;
+  z-index:1; 
+  padding:0.5em 1em;
+  box-sizing:border-box; }
+  
+#hstable {
+  height:16em;
+  overflow-y:auto;
+  overflow-x:hidden; }
+
+#muteb {
+  position:absolute;
+  right:2em; bottom:2em;
+  width:3em; height:3em;
+  z-index:2;
+  opacity:0.25; }
+
+#muteb:hover {
+  opacity:1; }
+
+.icon {
+  height:2em;
+  width:2em;
+  margin-top:-0.25em;
+  vertical-align:middle; }
+
+a, a.visited {
+  color:#fff;
+  text-decoration:none; }
+br {
+  clear:both;
+}
+
+.full { width:100%; }
+.half { width:50%; }
+.item {
+  text-transform:uppercase;
+  font-size:1.25em;
+  box-sizing:border-box;
+  white-space:nowrap; 
+  float:left; }
+.small { font-size:0.75em; }
+.left { text-align:left; }
+.right { text-align:right; }
+.centered, h1,h2,h3,h4,h5 { text-align:center; margin:0; }
+h1 { font-family:'GothicPixels'; font-size: 4em; color:#b9ab00; }
+h2 { font-family:'GothicPixels'; font-size: 2em; color:#b9ab00; }
+
+.score { font-size:1.5em; text-align:right; }
+.highlight, #points { background-color:#000; color:#f00; }
+
+
+table { font-size:0.9em; border-collapse:separate; border-spacing:0; width:100%; }

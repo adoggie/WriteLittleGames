@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Mutant Ape</title>
+</head>
+<body>
+
+<div id="interactive" oncontextmenu="event.preventDefault()">
+  <canvas id="canvas"></canvas>
+  
+  <div id="muteb">
+    <a href="javascript:screen.toggleAudio();">
+      <img src="gfx/speaker1.png" id="muteicon" class="full">
+    </a>
+  </div>
+</div>
+
+<div id="hiscore">
+  <h2>High Score</h2>
+  <br>
+  <div id="hstable"></div>
+  <br>
+</div>
+
+<div id="intro">
+  <br>
+  <br>
+  <h2>Congratulations</h2>
+  <h4>Please enter your wallet address for us to send you a POAP</h4>
+  <br>
+  <form method="POST">
+    <!--span class="small">Email address</span><br>
+    <input type="text" type="email" id="email" name="email"></input-->
+    <span class="small">Wallet address</span><br>
+    <input type="text" id="wallet" name="wallet"></input>
+    <br><br>
+    <a onclick="javascript:this.parentNode.submit();">
+      <div class="item half centered">
+        Submit
+      </div>
+    </a>
+    <a href="javascript:screen.restart();">
+      <div class="item half centered">
+        Skip
+      </div>
+    </a>
+    <br>
+  </form>
+</div>
+
+
+<script type="text/javascript" src="js/fizz.js"></script>
+<script type="text/javascript" src="js/hiscore.js"></script>
+<script type="text/javascript" src="js/assets.js"></script>
+<script type="text/javascript" src="js/lvl.js"></script>
+<script type="text/javascript" src="js/screens.js"></script>
+<script type="text/javascript" src="js/rooms.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/objects.js"></script>
+<script type="text/javascript" src="js/states.js"></script>
+
+</body>
+</html>
