@@ -1,69 +1,129 @@
-//matrix 
-// https://blog.csdn.net/iteye_19583/article/details/82568148
+class Bullet{
 
-class MyPlane extends Sprite{
-
-  constructor(x,y){
-    super(x,y);
-    this.color = 'red';
-    this.speed = 3;
-    this.width = 40;
-    this.height = 60;
+  constructor(img,x,y){
+    this.img = img;
+    this.x = x;
+    this.y = y;
   }
   
-  getRect(){
-    return {x:this.x,y:this.y,w:this.width,h:this.height};
+  fly(){
+    this.y -=8;
   }
   
   draw(){
-    // translate(0, 100);
-  //translate(p5.Vector.fromAngle(millis() / 1000, 140));
-    
     push();
-  
-  
-    
-    
-    stroke('red');
-    applyMatrix(1, 0, 0, -1, this.x, this.y);
-    
-    this.drawBody();
-
+    imageMode(CENTER);
+    image(this.img,this.x,this.y);
     pop();
-    
-    this.keyDown();
   }
   
-  drawBody(){
-    fill(0,222,255,200)
-    stroke(0, 0, 0,200)
-    strokeWeight(3)
-    beginShape()
-    vertex(0,0)
-    vertex(-this.width/2, -this.height+7)
-    vertex(-this.width/2+10, -this.height)
-    
-    vertex(0, -this.height+7 )
-    vertex(this.width/2-10, -this.height)
-    vertex(this.width/2, -this.height+7)
-    vertex(0,0)
-    endShape()
+  is_visible(){
+    if(this.x <0 || this.y <0 ){
+      return false;
+    }
+    return true;
   }
   
-  keyDown(key){
-    if(keyIsDown(LEFT_ARROW)){
-      this.x-=speed;
-    }
-    if(keyIsDown(RIGHT_ARROW)){
-      this.x+=speed;
-    }
-    if(keyIsDown(UP_ARROW)){
-      this.y-=speed;
-    }
-    if(keyIsDown(DOWN_ARROW)){
-      this.y+=speed;
-    }    
+  destroy(){
     
   }
+}
+
+class Plane{
+  constructor(img1,img2){
+    this.health =100;  //生命值
+    this.img1 = img1;
+    this.img2 = img2;
+    this.x = SCREEN_WIDTH/2;
+    this.y = SCREEN_HEIGHT - this.get_size().h /2 -10;
+    this.speed = 3;
+    this.timer_animation = 0;
+    this.timer_shot = 0;
+    this.image = this.img1;
+    // print(this.x,this.y);
+    
+    this.bullets = [];
+  }
   
+  get_size(){
+    return {w:102,h:126};
+  }
+  
+  get_speed(){
+    return this.speed;
+  }
+  
+  draw(){
+    push();
+    imageMode(CENTER);
+    
+    this.timer_animation+= deltaTime/1000;
+    if(this.timer_animation >0.5){
+      if(this.image == this.img1){
+        this.image = this.img2;
+      }else{
+        this.image = this.img1;
+      }
+      this.timer_animation = 0;
+    }
+    image(this.image,this.x,this.y);    
+    
+    circle(this.x,this.y,20);
+    pop();
+    if( keyIsDown( LEFT_ARROW) ){
+      this.x -= this.speed;
+    }
+    if( keyIsDown( RIGHT_ARROW) ){
+      this.x += this.speed;
+    }
+    if( keyIsDown( UP_ARROW) ){
+      this.y -= this.speed;
+    }
+    if( keyIsDown( DOWN_ARROW) ){
+      this.y += this.speed;
+    }
+    
+    this.x = mouseX;
+    this.y = mouseY;
+    
+    this.timer_shot+= deltaTime/1000;
+    if(this.timer_shot >0.2){
+      this.shot();
+      this.timer_shot = 0;
+    }
+    
+    this.draw_bullet();
+  }
+  
+  draw_bullet(){
+    let remove_list = [];
+    
+    for(let n=0;n<this.bullets.length;n++){
+      let b = this.bullets[n];
+      b.fly();
+      b.draw();
+      if( b.is_visible() == false){
+        remove_list.push(b);
+      }
+      for(let m=0;m< enemy_list.length;m++){
+        let enemy = enemy_list[m];
+        enemy.hit(b);
+      }
+    }
+    
+    for(let n=0;n< remove_list.length;n++){
+      let idx = this.bullets.indexOf(remove_list[n]);
+      this.bullets.splice(idx,1);
+    }
+  }
+  
+  shot(){
+    let x = this.x;
+    let y = this.y - this.get_size().h/2;
+    
+    let b = new Bullet(img_bullet1,x,y);
+    this.bullets.push(b);
+    bulletsnd.play();
+    
+  }
 }

@@ -1,0 +1,47 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "game",
+	"libVersion": "2.5.1",
+	"appid": "wx2b9ef44c6ca18a17",
+	"projectname": "p5.we",
+	"packOptions": {
+		"ignore": [
+			{
+				"type": "folder",
+				"value": "bk"
+			},
+      {
+        "type": "file",
+        "value":"p5.min.0.10.2.js"
+      }
+		]
+	},
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": []
+		}
+	}
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:d10a1ccc06564d013310fc24d5a8d766:1/1$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+-->
+<TextureAtlas imagePath="spitfireu4.png" width="2048" height="128">
+    <sprite n="spitfire_prop_01.png" x="2" y="112" w="160" h="11"/>
+    <sprite n="spitfire_r120_shadow_01.png" x="1460" y="2" w="585" h="45"/>
+    <sprite n="spitfire_u4.png" x="2" y="2" w="1456" h="108"/>
+</TextureAtlas>

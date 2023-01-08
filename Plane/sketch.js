@@ -1,119 +1,113 @@
+SCREEN_WIDTH= 480;
+SCREEN_HEIGHT= 700;
+SPEED = 4;
 
-var plane1 = new MyPlane(200,200);
+let bg1_y = 0;
+let bg2_y = 0;
+let timer_bg = 0;
+let bg_scroll_speed = 1;
 
-var speed = 3;
+let img_plane1;
+let img_plane2;
+let plane;
+let enemy_list = [];
+let img_enemy1;
+let img_bullet1;
+let img_down1;
+let img_down2;
+let img_down3;
+let img_down4;
 
-function preload() {
+let new_enemy_timer = 0;
+
+let dead_enemy_num = 0;
+
+//柏拉图： 世界上只有一种声音的话，那只有是谎言
+
+function preload(){
+  img_bg = loadImage('assets/background.png');
+  img_plane1 = loadImage('assets/plane.png');
+  img_plane2 = loadImage('assets/plane2.png');
+  img_enemy1 = loadImage('assets/enemy1.png');
+  img_bullet1 = loadImage('assets/bullet1.png');
+  
+  img_down1 = loadImage('assets/enemy1_down1.png');
+  img_down2 = loadImage('assets/enemy1_down2.png');
+  img_down3 = loadImage('assets/enemy1_down3.png');
+  img_down4 = loadImage('assets/enemy1_down4.png');
+  
   soundFormats('mp3', 'ogg');
-  mySound = loadSound('assets/jungle.ogg');
+  bgsnd = loadSound('assets/bg.ogg');
+  bulletsnd = loadSound('assets/bullet.ogg');
+  sndboom = loadSound('assets/boom3.mp3');
 }
 
 function setup() {
-  createCanvas(600, 600);
-  background(153);
-   // mySound.setVolume(0.1);
-  mySound.play();
+  createCanvas(SCREEN_WIDTH, SCREEN_HEIGHT);
+  plane = new Plane( img_plane1,img_plane2);
+  bgsnd.play();
 }
 
-function draw(){
+function draw() {
+  // background(220);
+  scroll_bg();
+  textSize(20);
+  text("Plane Battle V1.0 zyc",0,20);
+  text("You Killed : "+dead_enemy_num,0,SCREEN_HEIGHT-10);
   
-  background(255);
-  //draw_snow();
-  hill_sun_down();
-  plane1.draw();
+  plane.draw();
   
-}
-
-
-function hill_sun_down(){
-// background(204);  
-    push();
-    translate(0,height-120);
-    // 绘制一个太阳
-    fill(255,0,0,180)
-    stroke(255, 255, 0)
-    strokeWeight(6)
-    ellipse(350, 100, 100, 100)
-    // 开始绘制山的图形
-    // 设置颜色为灰色
-    fill(45,45,45,250)
-    stroke(0, 0, 0)
-    strokeWeight(1)
-    beginShape()
-    vertex(0,120)
-    vertex(10, 40)
-    vertex(40, 100)
-    vertex(80, 20)
-    vertex(110, 80)
-    vertex(260, 50)
-    vertex(360, 110)
-    vertex(400, 10)
-    vertex(480, 90)
-    vertex(580, 10)
-    vertex(580, 120)
-    // 结束绘制图形
-    endShape()
-    
-  pop();
-}
-
-
-let snowflakes = []; // array to hold snowflake objects
-
-// function setup() {
-//   createCanvas(400, 600);
-//   fill(240);
-//   noStroke();
-// }
-
-function draw_snow() {
-  background('brown');
-  noStroke();
-  let t = frameCount / 60; // update time
-
-  // create a random number of snowflakes each frame
-  for (let i = 0; i < random(5); i++) {
-    snowflakes.push(new snowflake()); // append snowflake object
+  new_enemy_timer += deltaTime/1000;
+  if(new_enemy_timer > .5){     
+    make_enemy();
+    new_enemy_timer = 0;
   }
-
-  // loop through snowflakes with a for..of loop
-  for (let flake of snowflakes) {
-    flake.update(t); // update snowflake position
-    flake.display(); // draw snowflake
-  }
+  show_enemy();
 }
 
-// snowflake class
-function snowflake() {
-  // initialize coordinates
-  this.posX = 0;
-  this.posY = random(-50, 0);
-  this.initialangle = random(0, 2 * PI);
-  this.size = random(2, 5);
+function make_enemy(){
+  // for(let n=20 ; n >=enemy_list.length+1;n-- ){
+  let num = int(random(3));
+  while(num-->0)
+    enemy_list.push(new Enemy(img_enemy1 , new StraightPath()));
+  // }
+}
 
-  // radius of snowflake spiral
-  // chosen so the snowflakes are uniformly spread out in area
-  this.radius = sqrt(random(pow(width / 2, 2)));
-
-  this.update = function(time) {
-    // x position follows a circle
-    let w = 0.6; // angular speed
-    let angle = w * time + this.initialangle;
-    this.posX = width / 2 + this.radius * sin(angle);
-
-    // different size snowflakes fall at slightly different y speeds
-    this.posY += pow(this.size, 0.5);
-
-    // delete snowflake if past end of screen
-    if (this.posY > height) {
-      let index = snowflakes.indexOf(this);
-      snowflakes.splice(index, 1);
+function show_enemy(){
+  let remove_list = [];
+  for(let n=0;n<enemy_list.length;n++){
+    enemy_list[n].draw();
+    if( enemy_list[n].is_visible() == false){
+      remove_list.push(enemy_list[n]);
     }
-  };
-
-  this.display = function() {
-    ellipse(this.posX, this.posY, this.size);
-  };
+  }
+  
+  for(let n=0;n<remove_list.length;n++){
+    let idx = enemy_list.indexOf( remove_list[n] );
+    enemy_list.splice(idx,1);
+  }
+  
+  
+  
+  
 }
 
+function draw_bg(){
+  image(img_bg,0,bg1_y,SCREEN_WIDTH,SCREEN_HEIGHT);
+  image(img_bg,0,bg2_y);  
+  bg1_y += bg_scroll_speed;
+  bg2_y = bg1_y - SCREEN_HEIGHT;
+  if(bg1_y == SCREEN_HEIGHT){
+    bg1_y = 0;
+  } 
+  
+ 
+}
 
+function scroll_bg(){
+  timer_bg += deltaTime / 1000;
+  if( timer_bg > 0.01){
+    draw_bg();
+    timer_bg = 0;
+  }
+}
